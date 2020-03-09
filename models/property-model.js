@@ -260,7 +260,7 @@ module.exports= {
 			orderby = " order by property_id ";
 		}
 		console.log("Hello");
-		var sql ="SELECT * FROM property where status = 'allowed' " + title + location + bed + bath + floor + purpose + type + status + price_from + price_to + orderby + " ";
+		var sql ="SELECT * FROM property where status = 'allowed' " + title + location + bed + bath + floor + purpose + type + price_from + price_to + orderby + " ";
 		console.log(sql);
 		db.getResults(sql, null, function(results){
 
