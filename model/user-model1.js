@@ -194,9 +194,77 @@ module.exports ={
 			}
 
 		});
+	},
+
+	searchProp:function(property, callback){
+	var title = property.title;
+		var location = property.location;
+		var bed = property.bed;
+		var bath = property.bath;
+		var floor = property.floor;
+		var price_from = property.price_from;
+		var price_to = property.price_to;
+		var purpose = property.purpose;
+		var type = property.type;
+		var orderby = property.orderby;
+
+		if(title){
+			title = " and title like '%" + property.title + "%'  ";
+		}else{
+			title = " ";
+		}
+		if(location){
+			location = " and  property_area like '%" + property.location + "%'  ";
+		}else{
+			location = " ";
+		}
+		if(bed){
+			bed = " and  bed = " + property.bed + "  ";
+		}else{
+			bed = " ";
+		}
+		if(bath){
+			bath = " and  bath = " + property.bath + "  ";
+		}else{
+			bath = " ";
+		}
+		if(floor){
+			floor = " and  floor = '" + property.floor + "'  ";
+		}else{
+			floor = " ";
+		}
+		if(purpose){
+			purpose = " and  style = '" + property.purpose + "'  ";
+		}else{
+			purpose = " ";
+		}
+		if(type){
+			type = " and  p_type = '" + property.type + "'  ";
+		}else{
+			type = " ";
+		}
+		if(price_from){
+			price_from = " and  property_price  between " + property.price_from + " and 100000000000 ";
+		}else{
+			price_from = " and   property_price  between 0 and 10000000000  ";
+		}
+		
+		var sql ="SELECT * from  property,customer,property_picture where  status = 'allowed' " + title + location + bed + bath + floor + purpose + type + price_from + "and property.username=customer.username and property.property_id=property_picture.property_id   ";
+		
+		db.getResult(sql, null, function(results){
+
+			if(results.length >= 0){
+				callback(results);
+			}else{
+				
+				callback(false);
+			}
+		});
 	}
 
-
-
-
 }
+
+
+
+
+

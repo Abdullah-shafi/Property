@@ -18,8 +18,7 @@ router.post('/', function(req, res){
 		password: req.body.password,
 		confirmPassword: req.body.confirmPassword,
 		phone: req.body.phone,
-		email: req.body.email,
-		image: req.body.image
+		email: req.body.email
 	};
 
 	if (!user.username) {
@@ -34,17 +33,13 @@ router.post('/', function(req, res){
 				userModel.validateUsername(user.username, function(status){
 			 	if(!status){
 					if (user.password == user.confirmPassword) {
-						if (!user.image) {
-							res.send('Uploading your image has an error');
-						} else {
-							userModel.insert(user, function(status1){
-								if (status1) {
-									res.redirect('/registration/success');
-								}else{
-									res.send('Registration has not been completed');
-								}
-							})
-						}
+						userModel.insert(user, function(status1){
+							if (status1) {
+								res.redirect('/registration/success');
+							}else{
+								res.send('Registration has not been completed');
+							}
+						})
 					}else{
 						res.send('Confirm Password did not match');
 					}

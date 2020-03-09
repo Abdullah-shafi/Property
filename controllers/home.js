@@ -305,6 +305,11 @@ router.post('/view_message', function(req, res){
 });
 
 
+
+
+
+
+
 ///////////////////////////////////////abdullah///////////////////////////////////////////
 
 
@@ -320,6 +325,34 @@ router.get('/Customer_Home', function(req, res){
 		    else
 		    {
 			 res.redirect('home/Customer_Home ',{propertylist: results});
+		    }
+			
+		});
+	
+});
+
+router.post('/Customer_Home', function(req, res){	
+	
+	var property = {
+	   title: req.body.title,
+	    location: req.body.location,
+	    bed: req.body.bed,
+	    bath: req.body.bath,
+	    floor: req.body.floor,
+	    price_from: req.body.price_from,
+	    purpose: req.body.purpose,
+	    type: req.body.type
+	
+	};
+
+		userModel1.searchProp(property,function(results){
+			if(results.length > 0)
+			{
+			      res.render('home/Customer_Home', {propertylist: results});
+		    }
+		    else
+		    {
+			 res.redirect('/',);
 		    }
 			
 		});
